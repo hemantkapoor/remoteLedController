@@ -7,6 +7,7 @@
 //============================================================================
 
 #include <iostream>
+#include "MessageManager.h"
 
 
 int main() {
