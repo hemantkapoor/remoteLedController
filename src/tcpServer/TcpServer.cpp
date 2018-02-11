@@ -171,7 +171,6 @@ bool TcpServer::readMessage(bool bIgnoreError /*=false*/)
 		//Convert to string as we need to pass this finally
 		std::string receivedMessage(readBuffer);
 		std::cout<<"Message received = "<<receivedMessage<<std::endl;
-		sendMessage("Hello");
 		//Do the callback
 		if(m_callBack != NULL)
 		{
