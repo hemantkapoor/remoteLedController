@@ -12,9 +12,9 @@
 
 class MessageBase {
 public:
-	MessageBase() = delete;
+	MessageBase()=default;
 	virtual void handleCommand(std::vector<std::string>&) = 0;
-	virtual ~MessageBase() = delete;
+	virtual ~MessageBase() = default;
 };
 
 #endif /* MESSAGEBASE_H_ */
