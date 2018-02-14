@@ -141,6 +141,7 @@ public:
 	gpio(GPIO::PinNumbersEnum);
 	//Todo: Implement below gpio methods
 	bool setDirection(GPIO::GpioDirection);
+	bool setValue(int val);
 
 
 	//gpio control functions
@@ -156,6 +157,8 @@ private:
 	const std::string GPIO_NAME = "gpio";
 	const std::string gpioExportString = GPIO_PATH + "export";
 	const std::string gpioUnexportString = GPIO_PATH + "unexport";
+	const std::string gpioDirection = "direction";
+	const std::string gpioValue = "value";
 };
 
 #endif /* GPIO_H_ */

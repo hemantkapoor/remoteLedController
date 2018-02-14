@@ -21,7 +21,8 @@ public:
 		return m_valid;
 	}
 
-	bool on() {return true;}
+	bool on();
+	bool off();
 
 
 private:
