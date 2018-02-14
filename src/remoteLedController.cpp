@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "MessageManager.h"
+#include "Ledmanager.h"
 #include "Utility.h"
 
 
@@ -15,6 +16,7 @@ int main() {
 	std::cout << "Hello World" << std::endl;
 
 	MessageManager::instance();
+	Ledmanager::instance();
 
 	while(true);
 	return 0;

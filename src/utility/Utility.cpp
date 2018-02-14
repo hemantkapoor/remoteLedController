@@ -35,6 +35,14 @@ std::vector<std::string> Utility::parseString(std::string& str)
 	return vectorString;
 }
 
+int Utility::convertToNumber(const std::string& str)
+{
+	std::stringstream ss(str);
+	int num;
+	ss >> num;
+	return num;
+}
+
 Utility::~Utility()
 {
 	if(m_utility != nullptr)

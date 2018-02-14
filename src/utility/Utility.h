@@ -23,6 +23,7 @@ public:
 	static Utility* instance();
 	virtual ~Utility();
 	std::vector<std::string> parseString(std::string&);
+	int convertToNumber(const std::string&);
 
 
 private:

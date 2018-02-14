@@ -30,13 +30,18 @@ public:
 	static Ledmanager* instance();
 	virtual ~Ledmanager();
 
-	virtual void handleCommand(std::vector<std::string>&){}
+	virtual void handleCommand(std::vector<std::string>&);
 
 private:
 	//Private functions
 	Ledmanager();
 	static Ledmanager* m_ledManager;
 	std::map<GPIO::PinNumbersEnum,Led*> m_ledRecords;
+
+	//Commands to handle
+	const std::string SetLedCommand = "SLC";
+	const std::string GetLedCommand = "GLC";
+
 };
 
 #endif /* LEDMANAGER_H_ */
