@@ -16,7 +16,7 @@ int main() {
 	std::cout << "Hello World" << std::endl;
 
 	MessageManager::instance();
-	Ledmanager::instance();
+	Ledmanager::instance()->addLed(GPIO::P8_7,"RED_LED");
 
 	while(true);
 	return 0;

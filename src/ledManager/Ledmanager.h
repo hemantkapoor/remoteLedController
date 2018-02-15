@@ -12,6 +12,7 @@
 #include "MessageBase.h"
 
 #include <vector>
+#include <set>
 
 class Led;
 
@@ -25,7 +26,7 @@ public:
 	//and assignment operator
 	Ledmanager& operator=(const Ledmanager&) = delete;
 
-	bool addLed(GPIO::PinNumbersEnum);
+	bool addLed(GPIO::PinNumbersEnum, const std::string&);
 
 	static Ledmanager* instance();
 	virtual ~Ledmanager();
@@ -36,7 +37,8 @@ private:
 	//Private functions
 	Ledmanager();
 	static Ledmanager* m_ledManager;
-	std::map<GPIO::PinNumbersEnum,Led*> m_ledRecords;
+	std::map<std::string,Led*> m_ledRecords;
+	std::set<GPIO::PinNumbersEnum> m_ledPinNumberRecords;
 
 	//Commands to handle
 	const std::string SetLedCommand = "SLC";

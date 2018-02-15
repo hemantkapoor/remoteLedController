@@ -28,17 +28,24 @@ Ledmanager* Ledmanager::instance()
 	return m_ledManager;
 }
 
-bool Ledmanager::addLed(GPIO::PinNumbersEnum pinNumber)
+bool Ledmanager::addLed(GPIO::PinNumbersEnum pinNumber, const std::string& ledName)
 {
-	//If the Led is already added then return false
-	if(m_ledRecords.find(pinNumber) != m_ledRecords.end())
+	//Check if pin exists
+	if(m_ledPinNumberRecords.find(pinNumber) != m_ledPinNumberRecords.end())
 	{
-		std::cout<<"Led already present "<<pinNumber;
+		std::cout<<"Pin Already allocated\n";
+		return false;
+	}
+	//Now check if name is present
+	if(m_ledRecords.find(ledName) != m_ledRecords.end())
+	{
+		std::cout<<"Led name already present "<<pinNumber;
 		return false;
 	}
 	//Led currentLed;
 	auto currentLed = new Led(pinNumber);
-	m_ledRecords[pinNumber] = currentLed;
+	m_ledRecords[ledName] = currentLed;
+	m_ledPinNumberRecords.insert(pinNumber);
 	return true;
 }
 
@@ -48,24 +55,23 @@ void Ledmanager::handleCommand(std::vector<std::string>& messageVector)
 	auto messageLength = messageVector.size();
 	if(messageLength < 2)
 	{
-		//Send a nack nack
+		//Send a nack
 		MessageManager::instance()->sendResponse("NACK 1");
 		return;
 	}
 	auto command = messageVector[0];
 
-	GPIO::PinNumbersEnum pinNumber = (GPIO::PinNumbersEnum)Utility::instance()->convertToNumber(messageVector[1]);
+	auto ledName = messageVector[1];
 	//first find if the Led is present
 	Led* currentLed=nullptr;
-	auto ledIterator = m_ledRecords.find(pinNumber);
+	auto ledIterator = m_ledRecords.find(ledName);
 	if(ledIterator == m_ledRecords.end())
 	{
 		MessageManager::instance()->sendResponse("NACK 2");
 		return;
 	}
 	currentLed = ledIterator->second;
-	//First value is the command
-	if(messageVector[0] ==  SetLedCommand)
+	if(command ==  SetLedCommand)
 	{
 		if(messageVector[2] == "on")
 		{
@@ -87,7 +93,7 @@ void Ledmanager::handleCommand(std::vector<std::string>& messageVector)
 	}
 	else
 	{
-		MessageManager::instance()->sendResponse("NACK");
+		MessageManager::instance()->sendResponse("NACK 4");
 		return;
 	}
 }
